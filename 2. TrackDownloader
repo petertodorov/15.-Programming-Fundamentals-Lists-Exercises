@@ -1,0 +1,37 @@
+sing System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+class TrackDownloader
+{
+    static void Main(string[] args)
+    {
+        List<string> blacklistWords = Console.ReadLine().Split(' ').ToList();
+        string filenames = Console.ReadLine();
+        List<string> result = new List<string>();
+        int isBlackCounter = 0; 
+        while (filenames != "end")
+        {
+            for (int i = 0; i < blacklistWords.Count; i++)
+            {
+                if (filenames.Contains(blacklistWords[i]))
+                {
+                    isBlackCounter++;
+                }
+            }
+                if (isBlackCounter==0)
+                {
+                    result.Add(filenames);
+                }
+            isBlackCounter = 0;
+            filenames = Console.ReadLine();
+        }
+        result.Sort();
+        foreach (var item in result)
+        {
+            Console.WriteLine(item);
+        }
+    }
+}
+   
