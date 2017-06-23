@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+class EqualSumAfterExtraction
+{
+    static void Main(string[] args)
+    {
+        List<int> firstline = Console.ReadLine().Split(' ').Select(int.Parse).ToList();
+        List<int> twoLine = Console.ReadLine().Split(' ').Select(int.Parse).ToList();
+
+        for (int i = 0; i < firstline.Count; i++)
+        {
+            if (twoLine.Contains(firstline[i]))
+            {
+                twoLine.Remove(firstline[i]);
+            }
+        }
+        if (firstline.Sum() == twoLine.Sum())
+        {
+            Console.WriteLine($"Yes. Sum: {firstline.Sum()}");
+        }
+        else
+        {
+            Console.WriteLine($"No. Diff: {Math.Abs(firstline.Sum() - twoLine.Sum())}");
+        }
+    }  
+}
+    
