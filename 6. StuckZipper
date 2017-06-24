@@ -1,0 +1,85 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+class StuckZipper
+{
+    static void Main(string[] args)
+    {
+        List<string> firstRow = Console.ReadLine().Split(' ').ToList();
+        List<string> secondRow = Console.ReadLine().Split(' ').ToList();
+
+        string smallestElementFirstRow = Convert.ToString(firstRow.Min(a => Math.Abs(int.Parse(a))));
+        string smallestElementSecondRow = Convert.ToString(secondRow.Min(a => Math.Abs(int.Parse(a))));
+        int smallestElementhLength = Math.Min(smallestElementFirstRow.Length, smallestElementSecondRow.Length);
+
+        firstRow = RemoveFromFirstRow(firstRow, smallestElementhLength);
+        secondRow = RemoveFroSecondRow(secondRow, smallestElementhLength);
+        int totalLength = firstRow.Count + secondRow.Count;
+       
+        for (int i = 1, j = 0; i <=totalLength; i += 2, j++)
+        {
+            if (j >=firstRow.Count)
+            {
+                break;
+            }
+            if (i > secondRow.Count)
+            {
+                i--;
+            }
+            secondRow.Insert(i, firstRow[j]);
+        }
+        Console.WriteLine(String.Join(" ", secondRow));
+    }
+        private static List<string> RemoveFroSecondRow(List<string> secondRow, int smallestElementhLength)
+    {
+        for (int i = 0; i < secondRow.Count; i++)
+        {
+            if (secondRow[i].First() == '-')
+            {
+                if (secondRow[i].Length > smallestElementhLength + 1)
+                {
+                    secondRow.Remove(secondRow[i]);
+                    i--;
+                }
+            }
+            else
+            {
+                if (secondRow[i].Length > smallestElementhLength)
+                {
+                    secondRow.Remove(secondRow[i]);
+                    i--;
+                }
+            }
+        }
+        return secondRow;
+    }
+
+    private static List<string> RemoveFromFirstRow(List<string> firstRow, int smallestElementhLength)
+    {
+        for (int i = 0; i < firstRow.Count; i++)
+        {
+            if (firstRow[i].First() == '-')
+            {
+                if (firstRow[i].Length > smallestElementhLength + 1)
+                {
+                    firstRow.Remove(firstRow[i]);
+                    i--;
+                }
+            }
+            else
+            {
+                if (firstRow[i].Length > smallestElementhLength)
+                {
+                    firstRow.Remove(firstRow[i]);
+                    i--;
+                }
+            }
+        }
+        return firstRow;
+    }
+}
+
+
+
